@@ -7,9 +7,15 @@ const config = {
     entry: {
         about: './src/pages/About.js',
         home: './src/pages/Home.js',
+        main: './src/index.js',
     },
+    devtool: 'source-map',
+
     plugins: [
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, '.public', 'index.html'),
+            favicon: './public/favicon.ico'
+        }),
         new StatoscopePlugin({
             saveStatsTo: 'stats.json',
             saveReportTo: 'report.html',
@@ -39,7 +45,8 @@ const config = {
             },
             {
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader'],
+                exclude: /node_modules/
             },
         ],
     },
@@ -67,6 +74,7 @@ const config = {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
         open: true,
+        hot: true,
         port: 9000,
     },
 };
