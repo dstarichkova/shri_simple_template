@@ -13,7 +13,7 @@ const config = {
 
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '.public', 'index.html'),
+            template: path.resolve(__dirname, 'public', 'index.html'),
             favicon: './public/favicon.ico'
         }),
         new StatoscopePlugin({
@@ -48,8 +48,14 @@ const config = {
                 use: ['style-loader', 'css-loader'],
                 exclude: /node_modules/
             },
+            {
+                test: /\.html$/i,
+                loader: "html-loader",
+                exclude: /node_modules/
+            },
         ],
     },
+
     optimization: {
         minimize: true,
         moduleIds: 'deterministic',
@@ -64,6 +70,7 @@ const config = {
         }
     },
     resolve: {
+        extensions: ['.js', '.ts', '.tsx', '.js', '.css', 'html'],
         fallback: {
             crypto: require.resolve('crypto-browserify'),
             stream: require.resolve("stream-browserify")
