@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+      branches:
+        - master
+
+
+jobs:
+  commit:
+    name: commit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set-up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+      - run: npm ci
+      - run: npm run lint:js
+      - run: npm run lint:css
+      - run: npm run build
+      - name: Deploy
+        uses: dstarichkova/ghaction-github-pages@v1
+        with:
+          target_branch: gh-pages
+          build_dir: build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
+
+
+
+
+  merge:
+    name: merge
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup-Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+      - run: npm ci
+      - run: npm run lint:js
+      - run: npm run lint:css
+      - run: |
+          npm run build
+          npm run analyze
+          npm run validate
+      - run: npm run deploy
