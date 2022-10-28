@@ -23,13 +23,13 @@ jobs:
       - run: npm run lint:js
       - run: npm run lint:css
       - run: npm run build
-      - name: Deploy
-        uses: dstarichkova/shri_simple_template@v1
-        with:
-          target_branch: gh-pages
-          build_dir: dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
+#      - name: Deploy
+#        uses: dstarichkova/shri_simple_template@v1
+#        with:
+#          target_branch: gh-pages
+#          build_dir: dist
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
 
 
 
