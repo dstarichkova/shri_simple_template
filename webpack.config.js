@@ -1,17 +1,17 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const StatoscopePlugin = require('@statoscope/webpack-plugin').default;
 const LodashWebPackPlugin = require('lodash-webpack-plugin');
 
 
 const config = {
     entry: {
-        about: './src/pages/About.js',
-        home: './src/pages/Home.js',
-        main: './src/index.js',
+        main: {
+            import: './src/index.js',
+        },
     },
-    devtool: 'source-map',
-
+    devtool: process.env.NODE_ENV === 'production' ? 'cheap-source-map' : 'inline-source-map',
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'public', 'index.html'),
@@ -24,6 +24,7 @@ const config = {
             open: false,
         }),
         new LodashWebPackPlugin(),
+        new MiniCssExtractPlugin(),
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -34,18 +35,20 @@ const config = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
                 loader: "babel-loader",
                 options: {
                     presets: [
                         '@babel/preset-env',
                         ['@babel/preset-react', {"runtime": "automatic"}]
-                        ]
-                }
+                        ],
+                    plugins: ['lodash']
+                },
+                exclude: /node_modules/,
+                resolve: {extensions: ['.js', '.jsx']},
             },
             {
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
                 exclude: /node_modules/
             },
             {
@@ -59,23 +62,24 @@ const config = {
     optimization: {
         minimize: true,
         moduleIds: 'deterministic',
-        innerGraph: true,
         concatenateModules: true,
         usedExports: true,
         splitChunks: {
-            chunks: "all"
+            minChunks: 2,
+            chunks: "all",
+            minSize: 0,
         },
-        runtimeChunk: {
-            name: "runtime"
-        }
+        runtimeChunk: "single"
     },
     resolve: {
         mainFields: ['unpkg', 'main', 'module'],
-        extensions: ['.js', '.ts', '.tsx', '.jsx', '.css', 'html'],
         fallback: {
             crypto: require.resolve('crypto-browserify'),
             stream: require.resolve("stream-browserify")
         },
+        alias: {
+            'crypto-browserify$': path.resolve(__dirname, 'src/crypto-fallback.ts'),
+        }
     },
     target: 'web',
     devServer: {
