@@ -24,9 +24,8 @@ module.exports = {
     },
     "plugins": [
         "react",
-        "prettier"
+        "only-warn"
     ],
     "rules": {
-        "prettier/prettier": "warn"
     }
 }
