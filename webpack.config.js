@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StatoscopePlugin = require('@statoscope/webpack-plugin').default;
 const LodashWebPackPlugin = require('lodash-webpack-plugin');
 
+
 const config = {
     entry: {
         about: './src/pages/About.js',
@@ -69,7 +70,8 @@ const config = {
         }
     },
     resolve: {
-        extensions: ['.js', '.ts', '.tsx', '.js', '.css', 'html'],
+        mainFields: ['unpkg', 'main', 'module'],
+        extensions: ['.js', '.ts', '.tsx', '.jsx', '.css', 'html'],
         fallback: {
             crypto: require.resolve('crypto-browserify'),
             stream: require.resolve("stream-browserify")

@@ -19,8 +19,8 @@
         "uuid": "^9.0.0"
     },
     "scripts": {
-        "start": "npx webpack serve --mode=development",
-        "build": "npx webpack --mode=production",
+        "start": "npx webpack serve --mode=production",
+        "build": "npx webpack",
         "lint:js": "npx eslint \"**/*.js\" --fix",
         "lint:css": "npx stylelint \"**/*.css\"",
         "analyze": "npm run validate && statoscope generate stats.json --output report.html",
@@ -35,7 +35,7 @@
         "@statoscope/stats-validator-plugin-webpack": "^5.24.0",
         "@statoscope/webpack-plugin": "^5.24.0",
         "babel-loader": "^8.2.5",
-        "css-loader": "^3.6.0",
+        "css-loader": "^6.7.1",
         "eslint": "^8.26.0",
         "eslint-plugin-react": "^7.31.10",
         "gh-pages": "^4.0.0",
