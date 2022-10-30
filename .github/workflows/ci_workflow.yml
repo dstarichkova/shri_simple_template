@@ -20,8 +20,8 @@ jobs:
         with:
           node-version: "16.x"
       - run: npm ci
-      - run: npm run lint:js
-      - run: npm run lint:css
+#      - run: npm run lint:js
+#      - run: npm run lint:css
       - run: npm run build
 #      - name: Deploy
 #        uses: dstarichkova/shri_simple_template@v1
@@ -44,8 +44,8 @@ jobs:
         with:
           node-version: "16.x"
       - run: npm ci
-      - run: npm run lint:js
-      - run: npm run lint:css
+#      - run: npm run lint:js
+#      - run: npm run lint:css
       - run: |
           npm run build
           npm run analyze
