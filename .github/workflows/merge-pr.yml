@@ -17,7 +17,6 @@ jobs:
           node-version: 14
       - run: npm ci
       - run: npm run build
-      - run: npm run test-ci
       - name: Deploy with gh-pages
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
