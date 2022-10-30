@@ -10,7 +10,15 @@ module.exports = {
     ],
     "overrides": [
     ],
+    "settings": {
+        "react": {
+            "version": "detect"
+        },
+    },
     "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
